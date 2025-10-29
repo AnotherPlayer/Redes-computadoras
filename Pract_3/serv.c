@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,13 +6,19 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define TAM_msj 100
+void writeText( char* msj ){
+
+    printf("\nEscribe un mensaje (Servidor): \n");
+    fgets(msj, 512, stdin);
+    msj[strcspn(msj, "\n")] = 0;
+
+}
 
 int main() {
 
-    int udp_socket, tam, lrecv;
+    int udp_socket, lbind, tam, lrecv;
     struct sockaddr_in servidor, cliente;
-    unsigned char msj[TAM_msj] = "Buenas red, soy Tetuan";
+    unsigned char msj[512];
     unsigned char paqRec[512];
     socklen_t len_cliente;
 
@@ -33,23 +38,46 @@ int main() {
     servidor.sin_port = htons(8080);     // Puerto de escucha
     servidor.sin_addr.s_addr = INADDR_ANY; // Escuchar en cualquier IP de la máquina
 
-    if (bind(udp_socket, (const struct sockaddr *)&servidor, sizeof(servidor)) < 0) {
+    lbind = bind(udp_socket, (struct sockaddr *)&servidor, sizeof(servidor));
+
+    if (lbind == -1) {
         perror("Error en bind");
         exit(EXIT_FAILURE);
     }
     
     else {
+
         perror("Exito en bind");
 
-        lrecv = sizeof(cliente);
-        tam = recvfrom(udp_socket, paqRec, 512, 0, (struct sockaddr *)&cliente, &lrecv);
+        while (1){
+            
+            //Original
+            lrecv = sizeof(cliente);
+            tam = recvfrom(udp_socket, paqRec, 512, 0, (struct sockaddr *)&cliente, &lrecv);
 
-        if (tam == -1) {
-            perror("Error al recibir");
-            exit(0);
+            if (tam == -1) {
+                perror("Error al recibir");
+                exit(0);
+            }
+            else 
+                printf("\nEl mensaje recibido es: %s\n", paqRec);
+
+            //New
+            writeText(msj);
+            
+            tam = sendto(udp_socket, msj, 512, 0, (struct sockaddr *)&cliente, sizeof(cliente));
+            
+            if (tam == -1) {
+                perror("Error al enviar");
+                exit(0);
+            }
+
+            else
+                printf("\nEnviando mensaje a Usuario: %s\n", msj);
+
         }
-        else 
-            printf("\nEl mensaje recibido es: %s\n", paqRec);
+        
+
         
 
     }
