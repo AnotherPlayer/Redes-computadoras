@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1761616973.69666 "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_1/test.tex" "build/test.pdf" "test" 1761616974.26412 0
+["pdflatex"] 1762198943.78228 "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_1/test.tex" "build/test.pdf" "test" 1762198944.23179 0
   "/etc/texmf/web2c/texmf.cnf" 1759931878.76016 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_1/test.tex" 1761616973.40571 5106 130ab1e1a2db063edd83747d4b6077f5 ""
+  "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_1/test.tex" 1762198943.56963 4871 4ed371742f991b5a787a1c64c7ee6a73 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -35,9 +35,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1759931897.99709 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1759932021 8214453 1689cfb54060d6a286aea021e2643af0 ""
-  "build/test.aux" 1761616974.21569 32 c81c40425fbb5e93b90fba65da0b5e61 "pdflatex"
+  "build/test.aux" 1762198944.1917 32 c81c40425fbb5e93b90fba65da0b5e61 "pdflatex"
   "escom.png" 1761604937.54588 17430 ba0b644bafe21ca6e2cda68575a4466e ""
-  "test.tex" 1761616973.40571 5106 130ab1e1a2db063edd83747d4b6077f5 ""
+  "test.tex" 1762198943.56963 4871 4ed371742f991b5a787a1c64c7ee6a73 ""
   (generated)
   "build/test.aux"
   "build/test.log"
