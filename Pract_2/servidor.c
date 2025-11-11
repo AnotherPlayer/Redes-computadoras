@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 
 int main() {
+    
     int udp_socket, lbind, tam;
     struct sockaddr_in local, remota;
     unsigned char msj[100] = "Red, soy Tetuan";

@@ -17,7 +17,7 @@
 \begin{titlepage}
 
     \flushleft
-    \includegraphics[width=0.3\textwidth]{escom.png} 
+    \includegraphics[width=0.3\textwidth]{./../escom.png} 
     \vspace{2cm}\\
     {\bfseries\LARGE Escuelas Supeior de Cómputo \\}
     \vspace{3cm}
@@ -36,6 +36,7 @@
 
 \section*{Código del programa en C}
 \textit{Código para abrir un socket UDP.}
+
 \begin{lstlisting}
 
 #include <stdio.h>
@@ -61,9 +62,54 @@ int main() {
     else{
 
         perror("Exito al abrir el socket");
+
+    }
+                
+    close(udp_socket);
+    return 0;
+
+}
+
+\end{lstlisting}
+
+\section*{Capturas de pantalla}
+\textit{Captuas donde se muestra que abrió un socket UDP}
+
+\includegraphics[width=0.9\textwidth]{./MsjTerminal1.png}
+\newpage
+
+\section*{Código del programa en C}
+\textit{Código para enviar un mensaje a través de un socket UDP}
+
+\begin{lstlisting}
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <unistd.h>
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+
+    int main() {
+    
+    int udp_socket, lbind, tam;
+    struct sockaddr_in local, remota;
+    unsigned char msj[100] = "Red, soy Tetuan";
+
+    udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
+
+    if (udp_socket == -1) {
+        perror("Error al abrir el socket");
+        exit(EXIT_FAILURE);
+    }
+
+    else{
+
+        perror("Exito al abrir el socket");
     
         local.sin_family = AF_INET;
-        local.sin_port = htons(0);
+        local.sin_port = htons(0);     // Puerto de escucha
         local.sin_addr.s_addr = INADDR_ANY;
 
         lbind = bind(udp_socket, (struct sockaddr *)&local, sizeof(local));
@@ -83,7 +129,6 @@ int main() {
 
             tam = sendto(udp_socket, msj, 20, 0, (struct sockaddr *)&remota, sizeof(remota));
 
-            
             if (tam == -1) {
                 perror("Error al enviar");
                 exit(0);
@@ -100,33 +145,30 @@ int main() {
     close(udp_socket);
     return 0;
 
-}
+    }
 
 \end{lstlisting}
-\newpage
 
 \section*{Capturas de pantalla}
-\textit{Captuas donde se muestra que abrió un socket UDP}
-\begin{lstlisting}
-\end{lstlisting}
-\newpage
+\textit{Donde se muestra que envío un mensaje a través de in socket UDP}
 
-\section*{Código del programa en C}
-\textit{Código para enviar un mensaje a través de un socket UDP}
-\newpage
+\includegraphics[width=0.8\textwidth]{./MsjTerminal2.png}
 
-\section*{Capturas de pantalla}
-\textit{donde se muestra que envío un mensaje a través de in socket UDP}
 \newpage
 
 \section*{Capturas de pantalla}
 \textit{Capturas donde se muestra que configuro el analizador de protocolos wireshark
 y se muestra que captura la trama enviada}
+
+\includegraphics[width=0.8\textwidth]{./MsjWireshark.png}
+
 \newpage
 
-
 \section*{Conclusión}
-
+Conocer todos los pasos para abrir un socket UDP y enviar datos a través de él, es de suma importancia en el ámbito de las redes de computadoras.
+UDP es un protocolo de comunicación que permite la transmisión de datos sin necesidad de establecer una conexión previa, lo que lo hace ideal para aplicaciones que requieren rapidez y eficiencia.
+\\
+Además, entender cómo configurar y utilizar sockets UDP proporciona una base sólida para el desarrollo de aplicaciones de red más complejas y mejora la capacidad de los desarrolladores para optimizar el rendimiento de las comunicaciones en red.
 
 
 \end{document}

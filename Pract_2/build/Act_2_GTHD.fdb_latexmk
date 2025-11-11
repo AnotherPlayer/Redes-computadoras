@@ -1,7 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1762262651.90431 "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_2/Act_2_GTHD.tex" "build/Act_2_GTHD.pdf" "Act_2_GTHD" 1762262652.50997 0
+["pdflatex"] 1762874180.41442 "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_2/Act_2_GTHD.tex" "build/Act_2_GTHD.pdf" "Act_2_GTHD" 1762874181.28374 0
+  "../escom.png" 1762209119.43829 17430 ba0b644bafe21ca6e2cda68575a4466e ""
   "/etc/texmf/web2c/texmf.cnf" 1759931878.76016 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_2/Act_2_GTHD.tex" 1762262651.06173 2939 69a02baccceb49add4ee741fa5e45093 ""
+  "/home/tetuan/Documentos/Personal/ESCOM/Redes/Pract_2/Act_2_GTHD.tex" 1762874180.20919 4319 0f26dbca3e5848bd7bde76377d3ff9c7 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -47,9 +48,11 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1759931897.99709 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1759932021 8214453 1689cfb54060d6a286aea021e2643af0 ""
-  "Act_2_GTHD.tex" 1762262651.06173 2939 69a02baccceb49add4ee741fa5e45093 ""
-  "build/Act_2_GTHD.aux" 1762262652.4641 32 f852561997c05a7d986acd1deeb530ec "pdflatex"
-  "escom.png" 1762209119.43829 17430 ba0b644bafe21ca6e2cda68575a4466e ""
+  "Act_2_GTHD.tex" 1762874180.20919 4319 0f26dbca3e5848bd7bde76377d3ff9c7 ""
+  "MsjTerminal1.png" 1762873009.47105 59462 1c07334ab94abaff690b781f1b58ad6e ""
+  "MsjTerminal2.png" 1762873454.17531 147841 cf7c3947c4786619d7fc2b892f5bc73a ""
+  "MsjWireshark.png" 1762873514.99311 143923 3c443b74f28dcda4fe0298c324495918 ""
+  "build/Act_2_GTHD.aux" 1762874181.24264 32 77e0dffd05b653a64f0caf3eb9bb454a "pdflatex"
   (generated)
   "build/Act_2_GTHD.aux"
   "build/Act_2_GTHD.log"

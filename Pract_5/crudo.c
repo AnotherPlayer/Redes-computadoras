@@ -9,6 +9,8 @@
 #include <net/if.h>
 #include <string.h>
 
+#define MACorigen 0
+
 void obtenerDatos(int ds){
 
   struct ifreq nic;
@@ -31,10 +33,16 @@ void obtenerDatos(int ds){
   }
 
   else{
-    printf("La direccion MAC es: ");
+
+    memcpy(nic.ifr_hwaddr.sa_data, nic.ifr_hwaddr.sa_data,6);
+    //memcpy(MACorigen, nic.ifr_hwaddr.sa_data,6);
+
     for(int i=0;i<6;i++){
-      printf("%02x", (unsigned char)nic.ifr_hwaddr.sa_data[i]);
-      if(i<5) printf(":");
+      printf("%.2x", (unsigned char)nic.ifr_hwaddr.sa_data[i]);
+      //printf("%.2x", MACorigen[i]);
+      if(i<5){
+        printf(":");
+      }
     }
     printf("\n\n");
   }
