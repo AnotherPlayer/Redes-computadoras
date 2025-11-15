@@ -6,14 +6,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-void writeText( char* msj ){
-
-    printf("\nEscribe un mensaje (Servidor): \n");
-    fgets(msj, 512, stdin);
-    msj[strcspn(msj, "\n")] = 0;
-
-}
-
 int main() {
 
     int udp_socket, lbind, tam, lrecv;

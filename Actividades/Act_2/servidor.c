@@ -10,7 +10,7 @@ int main() {
     
     int udp_socket, lbind, tam;
     struct sockaddr_in local, remota;
-    unsigned char msj[100] = "Red, soy Tetuan";
+    unsigned char msj[100] = "Hola red, soy David Tetuan";
 
     udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
 
@@ -39,8 +39,8 @@ int main() {
             perror("Exito en bind");
 
             remota.sin_family = AF_INET;
-            remota.sin_port = htons(53); // Puerto DNS
-            remota.sin_addr.s_addr = inet_addr("8.8.8.8");
+            remota.sin_port = htons(8080); // Puerto DNS
+            remota.sin_addr.s_addr = inet_addr("192.168.100.48");
 
             tam = sendto(udp_socket, msj, 20, 0, (struct sockaddr *)&remota, sizeof(remota));
 
