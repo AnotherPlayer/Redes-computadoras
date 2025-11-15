@@ -35,8 +35,8 @@ int main() {
         memset(&servidor, 0, sizeof(servidor));
     
         servidor.sin_family = AF_INET;
-        servidor.sin_port = htons(8080);     // Puerto de escucha
-        servidor.sin_addr.s_addr = INADDR_ANY; // Escuchar en cualquier IP de la máquina
+        servidor.sin_port = htons(8080);
+        servidor.sin_addr.s_addr = INADDR_ANY;
 
         lbind = bind(udp_socket, (struct sockaddr *)&servidor, sizeof(servidor));
 
@@ -59,17 +59,6 @@ int main() {
                 }
                 else 
                     printf("\nEl mensaje recibido es: %s\n", paqRec);
-
-                writeText(msj);
-            
-                tam = sendto(udp_socket, msj, 512, 0, (struct sockaddr *)&cliente, sizeof(cliente));
-            
-                if(tam == -1){
-                    perror("Error al enviar");
-                    exit(0);
-                }
-                else
-                    printf("\nEnviando mensaje a Usuario: %s\n", msj);
 
             }
         }

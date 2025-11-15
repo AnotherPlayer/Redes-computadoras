@@ -22,11 +22,10 @@ int main() {
     unsigned char paqRec[512];
     udp_socket = socket(AF_INET, SOCK_DGRAM, 0);
 
-    if (udp_socket == -1) {
+    if(udp_socket == -1){
         perror("Error al abrir el socket");
         exit(EXIT_FAILURE);
     }
-
     else{
 
         perror("Exito al abrir el socket");
@@ -37,11 +36,10 @@ int main() {
 
         lbind = bind(udp_socket, (struct sockaddr *)&local, sizeof(local));
 
-        if (lbind == -1) {
+        if(lbind == -1){
             perror("Error en bind");
             exit(0);
         }
-
         else{
 
             perror("Exito en bind");
@@ -54,36 +52,31 @@ int main() {
                 
                 writeText(msj);
 
-                //Original
                 tam = sendto(udp_socket, msj, 512, 0, (struct sockaddr *)&remota, sizeof(remota));
                 
-                if (tam == -1) {
+                if(tam == -1){
                     perror("Error al enviar");
                     exit(0);
                 }
-
                 else
                     printf("\nEnviando mensaje a Servidor: %s\n", msj);
-
-                //New
 
                 lrecv = sizeof(remota);
                 tam = recvfrom(udp_socket, paqRec, 512, 0, (struct sockaddr *)&remota, &lrecv);
 
-                if (tam == -1) {
+                if(tam == -1){
                     perror("Error al recibir");
                     exit(0);
                 }
                 else 
                     printf("\nEl mensaje recibido es: %s\n", paqRec);
 
-                }
+            }
 
         }
 
     }
                 
-
     close(udp_socket);
     return 0;
 

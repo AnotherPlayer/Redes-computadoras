@@ -47,6 +47,29 @@ void obtenerDatos(int ds){
     printf("\n\n");
   }
 
+  /* Obtener máscara de subred */
+  
+  if(ioctl(ds, SIOCGIFNETMASK, &nic) == -1){
+
+    perror("Error al obtener la máscara de subred");
+    exit(0);
+
+  }
+
+  else{
+
+    struct sockaddr_in *mask = (struct sockaddr_in *)&nic.ifr_addr;
+    char mask_str[INET_ADDRSTRLEN];
+
+    if(inet_ntop(AF_INET, &mask->sin_addr, mask_str, sizeof(mask_str)) == NULL)
+      perror("Error al convertir la máscara");
+    
+    else
+      printf("Máscara de subred: %s\n\n", mask_str);
+    
+  }
+
+
 }
 
 int main(){
