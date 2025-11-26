@@ -88,43 +88,46 @@
 \begin{enumerate}[label=\arabic*.]
     
 \item ¿Cuál es una característica fundamental de una red punto a punto?\\[0.3cm]
-Respuesta 1.
+Poder comunicar directamente solos dos dispositivo sin necesidad de un intermediario.
 \\[0.3cm]
 
 \item ¿Qué tipo de topología se encuentra comúnmente en una red punto a punto?\\[0.3cm]
-Respuesta 2.
+Las topologías más comunes son la topología en malla y la topología en anillo.
 \\[0.3cm]
 
 \item ¿Qué protocolo se utiliza comúnmente para determinar las direcciones MAC en una red punto a punto IPv4?\\[0.3cm]
-Respuesta 3.
+Se utiliza el Protocolo de Resolución de Direcciones (ARP).
 \\[0.3cm]
 
 \item ¿En qué capa del modelo OSI opera el enrutamiento en una red punto a punto?\\[0.3cm]
-Respuesta 4.
+En la capa de red (Capa 3), donde los dispositivos toman decisiones de enrutamiento basadas en direcciones IP.
 \\[0.3cm]
 
 \item ¿Cuál es el propósito de una tabla de enrutamiento en una red punto a punto?\\[0.3cm]
-Respuesta 5.
+Busca que un dispositivo pueda determinar cual es la mejor ruta en la cual enviar un paquete de datos hacia su destino.
 \\[0.3cm]
 
 \item En una red IPv4 se utiliza ARP para buscar a tu vecino. ¿Qué protocolo se utiliza comúnmente para descubrir vecinos en una red IPv6 punto a punto?\\[0.3cm]
-Respuesta 6.
+Se utiliza el Protocolo de Descubrimiento de Vecinos (Neighbor Discovery Protocol o NDP).
 \\[0.3cm]
 
 \item ¿Qué acción toma un dispositivo en una red punto a punto cuando debe enviar un paquete a un destino que está en la misma subred?\\[0.3cm]
-Respuesta 7.
-\\[0.3cm]
+\begin{itemize}
+    \item Busca la dirección IP de destino en su tabla de enrutamiento.
+    \item Determina que el destino es directamente conectado.
+    \item Encapsula el paquete IP en una trama y lo envía directamente a través de la interfaz de salida hacia el vecino.
+\end{itemize}
 
 \item ¿En qué situación se utilizaría un enrutador en una red punto a punto?\\[0.3cm]
-Respuesta 8.
+Cada que necesitemos conectar dos redes diferentes, un enrutador es necesario para dirigir el tráfico entre ellas.
 \\[0.3cm]
 
 \item ¿Qué tipo de dirección MAC se utiliza como dirección de destino en una trama Ethernet cuando se envían datos en una red punto a punto?\\[0.3cm]
-Respuesta 9.
+La dirección MAC Unicast de la interfaz del dispositivo vecino.
 \\[0.3cm]
 
 \item ¿Cuál es la principal diferencia entre una red punto a punto y una red LAN?\\[0.3cm]
-Respuesta 10.
+Una red punto a punto conecta dos puntos con un dominio de broadcast muy pequeño; LAN conecta muchos en un gran dominio de broadcast.
 \\[0.3cm]
 
 \end{enumerate}
