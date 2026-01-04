@@ -4,7 +4,16 @@
 \usepackage{graphicx}
 \usepackage{ragged2e}
 \usepackage{listings}
+\usepackage{ragged2e}
+\usepackage{fancyhdr}
 \usepackage{xcolor}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
 
 \lstset{
     language=C, basicstyle=\ttfamily\small, keywordstyle=\color{blue},
@@ -20,7 +29,7 @@
     \vspace{2cm}\\
     {\bfseries\LARGE Escuela Superior de Cómputo \\}
     \vspace{3cm}
-    {\scshape\Huge Práctica 5 \\ Obtención de parámetros de red mediante Sockets Crudos \\}
+    {\scshape\Huge Práctica 5 \\ Interfaz de Paquetes y Peticiones de Bajo Nivel \\}
     \vspace{3cm}
     {\itshape\Large Redes de computadora \\}
     \vfill
