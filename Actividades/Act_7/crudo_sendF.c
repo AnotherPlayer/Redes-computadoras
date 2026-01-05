@@ -140,25 +140,25 @@ void recibirTrama(int ds, unsigned char *trama){
 
   int tam;
 
-  while(1){
+    while(1){
 
-    memset(trama, 0, 1514);
-    tam = recvfrom(ds, trama, 1514, 0, NULL, 0);
+        memset(trama, 0, 1514);
+        tam = recvfrom(ds, trama, 1514, 0, NULL, 0);
 
-    if(tam==-1){
+        if(tam==-1){
 
-      perror("\nError al recibir");
-      exit(0);
+            perror("\nError al recibir");
+            exit(0);
 
-    }
+        }
 
-    else{
-        if(filtros(trama)){
-            imprimirTrama(trama, tam);
-            break;
+        else{
+            if(filtros(trama)){
+                imprimirTrama(trama, tam);
+                break;
+            }
         }
     }
-  }
 
 }
 
