@@ -20,10 +20,12 @@ void imprimeTrama(unsigned char *trama, int tam);
 
 
 void enviaTrama(int ds, int index, unsigned char *paq, int tam_total) {
+
     struct sockaddr_ll capaEnlace;
     int enviados;
 
     memset(&capaEnlace, 0x00, sizeof(capaEnlace));
+
     capaEnlace.sll_family = AF_PACKET;
     capaEnlace.sll_protocol = htons(ETH_P_ALL);
     capaEnlace.sll_ifindex = index;
@@ -32,8 +34,10 @@ void enviaTrama(int ds, int index, unsigned char *paq, int tam_total) {
 
     if (enviados == -1)
         perror("\nError al enviar la trama");
+
     else
         printf("\nExito al enviar la trama (%d bytes)\n", enviados);
+
 }
 
 void estructuraTramaLLC(unsigned char *trama, char *mensaje) {
@@ -41,12 +45,15 @@ void estructuraTramaLLC(unsigned char *trama, char *mensaje) {
     int len_mensaje = strlen(mensaje);
     int longitud_campo = 3 + len_mensaje;
     unsigned short longitud_net = htons(longitud_campo);
+
     memcpy(trama + 0, MACorigen, 6);
     memcpy(trama + 6, MACorigen, 6);
     memcpy(trama + 12, &longitud_net, 2);
+
     trama[14] = 0xF0;
     trama[15] = 0x0F;
     trama[16] = 0x7F;
+
     memcpy(trama + 17, mensaje, len_mensaje);
 }
 
@@ -83,8 +90,9 @@ void imprimeTrama(unsigned char *trama, int tam) {
 }
 
 int main() {
+
     int packet_socket, indice;
-    char *miMensaje = "Buenas que hace, Soy Cris";
+    char *miMensaje = "Ya funciona, espero jaja";
 
     packet_socket = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 
@@ -101,9 +109,10 @@ int main() {
 
     printf("\n********** Trama a enviar *************\n");
     imprimeTrama(tramaLLC, tam_total);
-
-    enviaTrama(packet_socket, indice, tramaLLC, tam_total);
+    
+        enviaTrama(packet_socket, indice, tramaLLC, tam_total);
 
     close(packet_socket);
     return 0;
+
 }
