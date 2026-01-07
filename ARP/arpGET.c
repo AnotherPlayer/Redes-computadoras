@@ -19,49 +19,61 @@ unsigned char IPdestino[4];
 unsigned char etherARP[2]={0x08,0x06};
 unsigned char codARPresp[2]={0x00,0x02};
 
+int obtenDatos( int ds );
+int filtroARP( unsigned char *paq,int len );
+void recibeARPresp( int ds,unsigned char *trama );
+void imprimeTrama( unsigned char *trama, int tam );
+
 //Check --> Parece estar bien
-int obtenerDatos( int ds ){
+int obtenDatos( int ds ){
 
     struct ifreq red;
-    char nombre[8];
-    int i, index;
+    char nombre[20];
+    int indice;
 
-    // Solicita el nombre de la interfaz (ej. eth0, wlan0)
-    printf("\nNombre de la interfaz de red: ");
-    gets(nombre);
+    // 1. Solicitar el nombre de la interfaz al usuario
+    printf("\nIngresa el nombre de la interfaz de red (ej. eth0, wlan0): ");
+    scanf("%s", nombre);
+
+    //Obtener índice
     strcpy(red.ifr_name, nombre);
-
-    // 1. Obtención del índice de la interfaz
-    if(ioctl(ds, SIOCGIFINDEX, &red) == -1) {
-        perror("\nError al obtener el indice");
+    
+    if (ioctl(ds, SIOCGIFINDEX, &red) == -1) {
+        perror("\nError al obtener el indice de la interfaz");
         exit(0);
     }
-    index = red.ifr_ifindex;
 
-    // 2. Obtención de la dirección MAC origen
-    if(ioctl(ds, SIOCGIFHWADDR, &red) == -1) {
-        perror("\nError al obtener la MAC");
+    indice = red.ifr_ifindex;
+    printf("\n-> Indice obtenido: %d", indice);
+
+    //Obtener MAC
+    strcpy(red.ifr_name, nombre);
+    
+    if (ioctl(ds, SIOCGIFHWADDR, &red) == -1) {
+        perror("\nError al obtener la direccion MAC");
         exit(0);
     }
+    
     memcpy(MACorigen, red.ifr_hwaddr.sa_data, 6);
+    
+    printf("\n-> MAC obtenida: %02X:%02X:%02X:%02X:%02X:%02X", 
+           MACorigen[0], MACorigen[1], MACorigen[2], 
+           MACorigen[3], MACorigen[4], MACorigen[5]);
 
-    // 3. Obtención de la dirección IP origen
-    if(ioctl(ds, SIOCGIFADDR, &red) == -1) {
-        perror("\nError al obtener la IP");
+    //Obtener la IP
+    strcpy(red.ifr_name, nombre);
+    
+    if (ioctl(ds, SIOCGIFADDR, &red) == -1) {
+        perror("\nError al obtener la direccion IP");
         exit(0);
     }
-    // Se copian 4 bytes a partir del byte 2 por la estructura sockaddr_in
+    
     memcpy(IPorigen, red.ifr_addr.sa_data + 2, 4);
+    
+    printf("\n-> IP obtenida: %d.%d.%d.%d\n", 
+           IPorigen[0], IPorigen[1], IPorigen[2], IPorigen[3]);
 
-    // Impresión de verificación de los datos locales
-    printf("El indice es: %d\n", index);
-    printf("La MAC origen es: ");
-    for(i = 0; i < 6; i++) printf("%.2X%c", MACorigen[i], i < 5 ? ':' : ' ');
-    printf("\nLa IP origen es: ");
-    for(i = 0; i < 4; i++) printf("%d%c", IPorigen[i], i < 3 ? '.' : ' ');
-    printf("\n");
-
-    return index;
+    return indice;
 
 }
 

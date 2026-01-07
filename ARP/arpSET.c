@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/ioctl.h>
+//#include <netinet/in.h>
 #include <sys/socket.h>
 #include <net/ethernet.h>
 #include <linux/if_packet.h>
@@ -23,71 +24,75 @@ unsigned char IPdestino[4];
 unsigned char etherARP[2]={0x08,0x06};
 unsigned char codARPresp[2]={0x00,0x02};
 
+int obtenDatos( int ds );
+void obtenIPdestino();
+void estructuraARPsol( unsigned char *trama );
+void enviaTrama( int ds,int index,unsigned char *paq );
+void imprimeTrama( unsigned char *trama, int tam );
+
 //Check --> Parece estar bien
-void obtenerDatos( int ds ){
+int obtenDatos( int ds ){
 
     struct ifreq red;
-    char nombre[8];
-    int i, index;
+    char nombre[20];
+    int indice;
 
-    printf("\nNombre de la interfaz de red: ");
-    gets(nombre); // El libro utiliza gets para capturar el nombre [1]
+    // 1. Solicitar el nombre de la interfaz al usuario
+    printf("\nIngresa el nombre de la interfaz de red (ej. eth0, wlan0): ");
+    scanf("%s", nombre);
+
+    //Obtener índice
     strcpy(red.ifr_name, nombre);
-
-    // 1. Obtención del índice de la interfaz [9]
-    if(ioctl(ds, SIOCGIFINDEX, &red) == -1) {
-        perror("\nError al obtener el indice");
+    
+    if (ioctl(ds, SIOCGIFINDEX, &red) == -1) {
+        perror("\nError al obtener el indice de la interfaz");
         exit(0);
     }
 
-    index = red.ifr_ifindex;
+    indice = red.ifr_ifindex;
+    printf("\n-> Indice obtenido: %d", indice);
 
-    // 2. Obtención de la dirección MAC (física) [4, 10]
-    if(ioctl(ds, SIOCGIFHWADDR, &red) == -1) {
-        perror("\nError al obtener la MAC");
+    //Obtener MAC
+    strcpy(red.ifr_name, nombre);
+    
+    if (ioctl(ds, SIOCGIFHWADDR, &red) == -1) {
+        perror("\nError al obtener la direccion MAC");
         exit(0);
     }
-
+    
     memcpy(MACorigen, red.ifr_hwaddr.sa_data, 6);
+    
+    printf("\n-> MAC obtenida: %02X:%02X:%02X:%02X:%02X:%02X", 
+           MACorigen[0], MACorigen[1], MACorigen[2], 
+           MACorigen[3], MACorigen[4], MACorigen[5]);
 
-    // 3. Obtención de la dirección IP (lógica) [5, 11]
-    if(ioctl(ds, SIOCGIFADDR, &red) == -1) {
-        perror("\nError al obtener la IP");
+    //Obtener la IP
+    strcpy(red.ifr_name, nombre);
+    
+    if (ioctl(ds, SIOCGIFADDR, &red) == -1) {
+        perror("\nError al obtener la direccion IP");
         exit(0);
     }
-
-    // Se copia a partir del byte 2 por la estructura sockaddr_in [3, 12]
+    
     memcpy(IPorigen, red.ifr_addr.sa_data + 2, 4);
+    
+    printf("\n-> IP obtenida: %d.%d.%d.%d\n", 
+           IPorigen[0], IPorigen[1], IPorigen[2], IPorigen[3]);
 
-    // Impresión de datos para verificación [13, 14]
-    printf("El indice es: %d\n", index);
-
-    printf("La MAC origen es: ");
-    for(i = 0; i < 6; i++)
-        printf("%.2X%c", MACorigen[i], i < 5 ? ':' : ' ');
-
-    printf("\nLa IP origen es: ");
-    for(i = 0; i < 4; i++)
-        printf("%d%c", IPorigen[i], i < 3 ? '.' : ' ');
-
-    printf("\n");
-
-    return index;
+    return indice;
 
 }
 
-//Check --> Problemas con la captura de la IP destino
-void obtenerIPdestino(){
+//Check --> Parece estar bien
+void obtenIPdestino(){
 
-    int ip[7];
-    printf("\nIntroduce la IP destino (ejemplo 192.168.1.1): ");
-    // El libro asume la captura de los 4 octetos [15]
-    scanf("%d.%d.%d.%d", &ip, &ip[17], &ip[18], &ip[19]);
+    char ipStr[20];
+    printf("\nIntroduce la IP destino (a quien buscas): ");
+    scanf("%s", ipStr);
     
-    IPdestino = (unsigned char)ip;
-    IPdestino[17] = (unsigned char)ip[17];
-    IPdestino[18] = (unsigned char)ip[18];
-    IPdestino[19] = (unsigned char)ip[19];
+    // Convertir string "192.168.1.1" a bytes
+    in_addr_t ip = inet_addr(ipStr);
+    memcpy(IPdestino, &ip, 4);
 
 }
 
@@ -127,7 +132,7 @@ void enviaTrama( int ds,int index,unsigned char *paq ){
 }
 
 //Check --> Parece estar bien
-void imprimirTrama( unsigned char *trama, int tam ){
+void imprimeTrama( unsigned char *trama, int tam ){
 
     int i;
 
@@ -144,7 +149,7 @@ void imprimirTrama( unsigned char *trama, int tam ){
 int main(){
 
     int packet_socket,indice;
-    packet_socket=socket(AF_PACKET,SOCK_RAW,htons(ETH_P_ALL));
+    packet_socket = socket(AF_PACKET,SOCK_RAW,htons(ETH_P_ALL));
 
     if(packet_socket == -1){
 
