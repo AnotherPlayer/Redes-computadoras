@@ -11,7 +11,7 @@
 #include <net/ethernet.h>
 #include <linux/if_packet.h>
 
-unsigned char tramaARPresp[60];
+unsigned char tramaARPresp[1514];
 
 unsigned char MACorigen[6];
 unsigned char IPorigen[4];
@@ -97,21 +97,37 @@ void recibeARPresp( int ds,unsigned char *trama ){
 
     int tam,bandera=0;
 
-    while(1){
+    //Agregar límite de tiempo
+    long int mtime = 0;
+    struct timeval start,end;
+    long seconds,useconds;
 
-        tam = recvfrom(ds,trama,1514,0,NULL,0);
+    gettimeofday(&start,NULL);
+
+    while(mtime < 5000){
+
+        tam = recvfrom(ds,trama,1514,MSG_DONTWAIT,NULL,0);
 
         if(tam==-1)
             perror("\nError al recibir");
-
+            
         else{
-
+            
             bandera = filtroARP(trama,tam);
 
-            if(bandera==1)
-                break;
+            if(bandera == 1)
+                return;
             
         }
+
+        //Leer tiempo
+        gettimeofday(&end,NULL);
+
+        seconds = end.tv_sec - start.tv_sec;
+        useconds = end.tv_usec - start.tv_usec;
+
+        mtime = ( (seconds) * 1000 + useconds/1000.0 ) + 0.5;
+
     }
 
 }
