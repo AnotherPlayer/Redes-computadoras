@@ -23,6 +23,7 @@ int obtenDatos( int ds );
 int filtroARP( unsigned char *paq,int len );
 void recibeARPresp( int ds,unsigned char *trama );
 void imprimeTrama( unsigned char *trama, int tam );
+void imprimeIPMAC( unsigned char *trama );
 
 //Check --> Parece estar bien
 int obtenDatos( int ds ){
@@ -148,6 +149,17 @@ void imprimeTrama( unsigned char *trama, int tam ) {
 
 }
 
+//Check --> Parece estar bien
+void imprimeIPMAC( unsigned char *trama ){
+
+    printf("Pendejo ya jala");
+
+    printf("-> IP: %d.%d.%d.%d  |  MAC: %02X:%02X:%02X:%02X:%02X:%02X\n",
+           trama[28], trama[29], trama[30], trama[31],
+           trama[22], trama[23], trama[24], trama[25], trama[26], trama[27]);
+
+}
+
 //Done --> Es del libro
 int main(){
 
@@ -171,6 +183,7 @@ int main(){
         printf("\n**********La trama que se recibe de respuesta ARP's*************\n");
 
         imprimeTrama(tramaARPresp,60);
+        imprimeIPMAC(tramaARPresp);
 
     }
 
