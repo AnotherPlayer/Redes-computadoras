@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/ioctl.h>
-//#include <netinet/in.h>
+#include <netinet/in.h>
 #include <sys/socket.h>
 #include <net/ethernet.h>
 #include <linux/if_packet.h>

@@ -85,7 +85,7 @@ int recibeTramaLLC(int ds, unsigned char *trama){
     
     gettimeofday(&start,NULL);
 
-    while(mtime < 200){
+    while(mtime < 500){
 
         memset(trama, 0, 1514);
 
